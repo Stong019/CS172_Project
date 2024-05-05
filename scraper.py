@@ -2,7 +2,7 @@ import praw
 import requests
 import os
 
-# save HTML content to a file
+# Save HTML content to a file
 def save_html_to_file(url, file_path):
     response = requests.get(url)
     with open(file_path, 'wb') as file:
@@ -15,14 +15,16 @@ reddit = praw.Reddit(
     user_agent="CS172 my-app scraper",
 )
 
-subreddit = reddit.subreddit("AmIOverreacting")  # Subreddit name == "HydroHomies"
+# Initializing Subreddit Searching
+subreddit = reddit.subreddit("AmIOverreacting")  # Subreddit name == "AmIOverreacting"
 top_posts = subreddit.top(limit=10)  # Limits to 10 posts
 
 # Create a directory to store crawled HTML pages if it doesn't exist
 if not os.path.exists('crawled_pages'):
     os.makedirs('crawled_pages')
 
-# Iterate over top posts
+# Iterate over top posts & print them
+unique_posts = {}
 for post in top_posts:
     print("Title - ", post.title)
     print("ID - ", post.id)
@@ -31,13 +33,18 @@ for post in top_posts:
     print("Score - ", post.score)
     print("Comment count - ", post.num_comments)
     print("Created - ", post.created_utc)
+    print()
 
-    # Save HTML content to a file
-    file_name = f"crawled_pages/{post.id}.html"
-    save_html_to_file(post.url, file_name)
+    # If post is not a duplicate, save it as html
+    if post.id not in unique_posts:
+        unique_posts[post.id] = 1  #Put post into dictionary/hashmap
 
-    print("HTML content saved to:", file_name)
-    print('----------')
+        # Save HTML content to a file
+        file_name = f"crawled_pages/{post.id}.html"
+        save_html_to_file(post.url, file_name)
+
+        print("HTML content saved to:", file_name)
+        print('----------')
 
 print('----------')
 post = reddit.submission(id="l0wpxj")  # Grabbing one of the ids of a post
