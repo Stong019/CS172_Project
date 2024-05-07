@@ -1,5 +1,7 @@
 # CS172_Project: Reddit Post Collector
 
+Crawled Data - [https://drive.google.com/drive/folders/1RXtagArfV1uIKl7C-WqpscmX4jXI1YMi?usp=sharing](https://drive.google.com/drive/folders/1RXtagArfV1uIKl7C-WqpscmX4jXI1YMi?usp=sharing)
+
 ## Installing Reddit API
 Setting up Reddit Scraper: https://www.youtube.com/watch?v=nssOuD9EcVk
 
