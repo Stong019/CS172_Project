@@ -1,7 +1,8 @@
 import praw
 import json
 import os
-
+from tqdm import tqdm  
+import time
 # Linking program to our Reddit Developer Account to scrape posts & comments
 reddit = praw.Reddit(
     client_id="jU9lQ5ZNRqRV_VJ0MzhKaQ",
@@ -18,10 +19,13 @@ for i in range(num_subreddits):
     subreddit_name = input(f"Enter name of subreddit {i + 1}: ")
     subreddits.append(subreddit_name)
 
+# Ask user for the number of posts to scrape per subreddit
+num_posts = int(input("Enter the number of posts to scrape per subreddit: "))
+
 if not os.path.exists('crawled_posts'):
     os.makedirs('crawled_posts')
 
-# save Reddit post data to JSON file
+# Function to save Reddit post data to a JSON file
 def save_posts_to_json(posts, file_path):
     data = []
     for post in posts:
@@ -42,42 +46,36 @@ def save_posts_to_json(posts, file_path):
     with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
 
-# Iterate over top posts & print them
-unique_posts = {}
-post_num = 5
-posts_collection = []
-total_posts = 0
-for subreddit_name in subreddits:
+# Function to scrape and save posts
+def scrape_and_save_post(subreddit_name, num_posts):
     subreddit = reddit.subreddit(subreddit_name)
-    top_posts = subreddit.top(limit=10)  # Limits to 1,000 posts
+    top_posts = subreddit.top(limit=num_posts)
+    posts_collection = []
+    total_posts = 0
+    progress_bar = tqdm(total=num_posts, desc=f"Scraping {subreddit_name}", bar_format="{l_bar}{bar:10}{r_bar}", colour='green')
     for post in top_posts:
-        # If post is not a duplicate, save post to collection
+        # Save post to collection if not a duplicate
         if post.id not in unique_posts:
             unique_posts[post.id] = 1
             total_posts += 1
             posts_collection.append(post)
-            if total_posts % post_num == 0:
-                file_name = f"crawled_posts/{total_posts // post_num}.json"
-                save_posts_to_json(posts_collection, file_name)
-                print(f"Post collection {total_posts // post_num} saved to {file_name}")
-                posts_collection = []
+        # Calculate sleep duration based on number of posts
+        sleep_duration = min(0.1, 0.1 * num_posts)  # This lets us show the user the progress bar move over time, however if the number of posts is too large then we want to minimize time slept
+        time.sleep(sleep_duration)
+        progress_bar.update(1)
 
-# Save any remaining posts to a JSON file
-if posts_collection:
-    file_name = f"crawled_posts/{total_posts // post_num + 1}.json"
+    # Quality of life update, After scraping all posts, save them into a single JSON file
+    file_name = f"crawled_posts/{subreddit_name}.json"
     save_posts_to_json(posts_collection, file_name)
-    print(f"Post collection {total_posts // post_num + 1} saved to {file_name}")
+    print(f"All posts from {subreddit_name} saved to {file_name}")
+    progress_bar.close()
 
+unique_posts = {}
+post_num = 10  # Number of posts per JSON file
+
+# Iterate over each subreddit
+for subreddit_name in subreddits:
+    print(f"Fetching posts from subreddit: {subreddit_name}")
+    scrape_and_save_post(subreddit_name, num_posts)
 
 print("FINISHED CRAWLING POSTS")
-# print('----------')
-# ppost = reddit.submission(id="l0wpxj")  # Grabbing one of the ids of a post
-# comments = post.comments
-
-# for comment in comments[:2]:  # Grab first 2 comments of that specific post
-#     print("Printing comment...")
-#     print("Comment body - ", comment.body)
-#     print("Author - ", comment.author)
-#     print()
-
-#print(reddit.read_only)
