@@ -9,9 +9,14 @@ reddit = praw.Reddit(
     user_agent="CS172 my-app scraper",
 )
 
-# Initializing Subreddit Searching
-subreddit = reddit.subreddit("AmIOverreacting")
-top_posts = subreddit.top(limit=10)  # Limits to 1,000 posts
+# Ask user for the number of subreddits to scrape
+num_subreddits = int(input("Enter the number of subreddits to scrape: "))
+
+subreddits = []
+# Ask user for subreddit names
+for i in range(num_subreddits):
+    subreddit_name = input(f"Enter name of subreddit {i + 1}: ")
+    subreddits.append(subreddit_name)
 
 if not os.path.exists('crawled_posts'):
     os.makedirs('crawled_posts')
@@ -42,26 +47,20 @@ unique_posts = {}
 post_num = 5
 posts_collection = []
 total_posts = 0
-for post in top_posts:
-    # print("Title - ", post.title)
-    # print("ID - ", post.id)
-    # print("Author - ", post.author)
-    # print("URL - ", post.url)
-    # print("Score - ", post.score)
-    # print("Comment count - ", post.num_comments)
-    # print("Created - ", post.created_utc)
-    # print()
-
-    # If post is not a duplicate, save post to collection
-    if post.id not in unique_posts:
-        unique_posts[post.id] = 1  #Put post into dictionary/hashmap
-        total_posts += 1
-        posts_collection.append(post)
-        if total_posts % post_num == 0:
-            file_name = f"crawled_posts/{total_posts // post_num}.json"
-            save_posts_to_json(posts_collection, file_name)
-            print(f"Post collection {total_posts // post_num} saved to {file_name}")
-            posts_collection = []
+for subreddit_name in subreddits:
+    subreddit = reddit.subreddit(subreddit_name)
+    top_posts = subreddit.top(limit=10)  # Limits to 1,000 posts
+    for post in top_posts:
+        # If post is not a duplicate, save post to collection
+        if post.id not in unique_posts:
+            unique_posts[post.id] = 1
+            total_posts += 1
+            posts_collection.append(post)
+            if total_posts % post_num == 0:
+                file_name = f"crawled_posts/{total_posts // post_num}.json"
+                save_posts_to_json(posts_collection, file_name)
+                print(f"Post collection {total_posts // post_num} saved to {file_name}")
+                posts_collection = []
 
 # Save any remaining posts to a JSON file
 if posts_collection:
