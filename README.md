@@ -1,4 +1,4 @@
-# CS172_Project
+# CS172_Project: Reddit Post Collector
 
 ## Installing Reddit API
 Setting up Reddit Scraper: https://www.youtube.com/watch?v=nssOuD9EcVk
