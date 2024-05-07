@@ -19,7 +19,6 @@ Setting up Reddit Scraper: https://www.youtube.com/watch?v=nssOuD9EcVk
    ```bash
    cd path/to/your/project
 
-
 2. Setup and activate virtual environment
    ```bash
    python -m venv env
