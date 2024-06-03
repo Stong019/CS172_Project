@@ -42,7 +42,7 @@ def create_index(dir):
     if not os.path.exists(dir):
         os.mkdir(dir)
     store = SimpleFSDirectory(Paths.get(dir))
-    analyzer = StandardAnalyzer()
+    analyzer = StandardAnalyzer() # 'knows about certain token types, lowercases, removes stopwords...'
     config = IndexWriterConfig(analyzer)
     config.setOpenMode(IndexWriterConfig.OpenMode.CREATE)
     writer = IndexWriter(store, config)

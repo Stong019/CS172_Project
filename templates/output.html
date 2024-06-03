@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+    <html>
+        <body>
+            <h2>Search Results</h2>
+            {% for doc in lucene_output %}
+                <p>Score: {{ doc.score }}</p>
+                <p>Context: {{ doc.text }}</p>
+                <hr>
+            {% endfor %}
+    </body>
+</html>
