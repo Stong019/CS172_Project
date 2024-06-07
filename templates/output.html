@@ -12,7 +12,7 @@
             {% for doc in lucene_output %}
                 <div class="card">
                     <!-- <p>Score: {{ doc.score }}</p> -->
-                    <h3>Title: {{ doc.text }}</h3>
+                    <h3>Title: {{ doc.title }}</h3>
                     <p>Body: {{ doc.body }} </p>
                     <p>Url: <a href="{{ doc.url }}">{{ doc.url }}</a></p>
                 </div>
