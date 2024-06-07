@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset=UTF-8>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CS172 Project</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/input.css') }}">
+    </head>
     <body>
-        <form action="/output" method="post">
-            Query: <input type="text" name="query">
-            <input type="submit" value="Search">
-        </form>
+        <div>
+            <form action="/output" method="post">
+                <input class='sbar' required type="text" name="query" placeholder="Search...">
+                <input class='sbutton' type="submit" value="Search">
+            </form>
+        </div>
+
     </body>
 </html>

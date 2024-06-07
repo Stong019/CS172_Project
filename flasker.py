@@ -34,7 +34,7 @@ def retrieve(storedir, query):
     searchDir = NIOFSDirectory(Paths.get(storedir))
     searcher = IndexSearcher(DirectoryReader.open(searchDir))
     
-    parser = QueryParser('Context', StandardAnalyzer())
+    parser = QueryParser('Body', StandardAnalyzer())
     parsed_query = parser.parse(query)
 
     topDocs = searcher.search(parsed_query, 10).scoreDocs
@@ -43,20 +43,14 @@ def retrieve(storedir, query):
         doc = searcher.doc(hit.doc)
         topkdocs.append({
             "score": hit.score,
-            "text": doc.get("Context")
+            "text": doc.get("Title"),
+            "author": doc.get("Author"),
+            "body": doc.get("Body")
         })
     return topkdocs
     #print(topkdocs)
 
-@app.route("/")
-def home():
-    return 'hello!~!!'
-
-@app.route("/abc")
-def abc():
-    return 'hello alien'
-
-@app.route('/input', methods = ['POST', 'GET'])
+@app.route("/", methods = ['POST', 'GET'])
 def input():
     return render_template('input.html')
 
@@ -69,7 +63,7 @@ def output():
         query = form_data['query']
         print(f"this is the query: {query}")
         lucene.getVMEnv().attachCurrentThread()
-        docs = retrieve('sample_lucene_index/', str(query))
+        docs = retrieve('lucene_index/', str(query))
         print(docs)
         
         return render_template('output.html',lucene_output = docs)
@@ -84,3 +78,5 @@ if __name__ == "__main__":
 # retrieve('sample_lucene_index/', 'web data')
 
 
+#search == home page
+#button that redirects back to home page after searching

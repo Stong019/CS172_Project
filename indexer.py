@@ -65,13 +65,15 @@ def create_index(dir):
                 title = post['title']
                 author = post['author']
                 body = post['selftext']
+                url = post['url']
 
-                print(title, body)
+                # print(title, body)
                 
                 doc = Document()
                 doc.add(Field('Title', str(title), metaType))
                 doc.add(Field('Author', str(author), contextType))
                 doc.add(Field('Body', str(body), contextType))
+                doc.add(Field('Url', str(url), contextType))
                 writer.addDocument(doc)
     
     writer.close()
@@ -91,13 +93,14 @@ def retrieve(storedir, query):
             "score": hit.score,
             "text": doc.get("Title"),
             "author": doc.get("Author"),
-            "body": doc.get("Body")
+            "body": doc.get("Body"),
+            "url": doc.get("Url")
         })
     
     print(topkdocs)
 
 
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
-# create_index('sample_lucene_index/')
-search_term = input("Enter a query term: ")
-retrieve('sample_lucene_index/', search_term)
+create_index('lucene_index/')
+# search_term = input("Enter a query term: ")
+# retrieve('lucene_index/', search_term)

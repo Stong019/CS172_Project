@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-    <html>
-        <body>
-            <h2>Search Results</h2>
+<html>
+    <head>
+        <meta charset=UTF-8>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CS172 Project</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/output.css') }}">    </head>
+    <body>
+        <h2>Search Results</h2>
+        <div class="container">
+        {% if lucene_output %}
             {% for doc in lucene_output %}
-                <p>Score: {{ doc.score }}</p>
-                <p>Context: {{ doc.text }}</p>
-                <hr>
+                <div class="card">
+                    <!-- <p>Score: {{ doc.score }}</p> -->
+                    <h3>Title: {{ doc.text }}</h3>
+                    <p>Body: {{ doc.body }} </p>
+                    <p>Url: <a href="{{ doc.url }}">{{ doc.url }}</a></p>
+                </div>
             {% endfor %}
+        {% else %}
+            <h3>No Results Found</h3>
+        {% endif %}
+        </div>
+        <button><a href="/">Search Again</a></button>
     </body>
 </html>
