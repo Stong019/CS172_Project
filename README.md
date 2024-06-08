@@ -1,47 +1,38 @@
-# CS172_Project: Reddit Post Collector
+# CS172_Project: CS172 Reddit Post Collection Search
 
 Crawled Data - [https://drive.google.com/drive/folders/1RXtagArfV1uIKl7C-WqpscmX4jXI1YMi?usp=sharing](https://drive.google.com/drive/folders/1RXtagArfV1uIKl7C-WqpscmX4jXI1YMi?usp=sharing)
 
 ## Installing Reddit API
 Setting up Reddit Scraper: https://www.youtube.com/watch?v=nssOuD9EcVk
 
-## Prequisite Installation and Setup
-
-1. Install Python
-   
-   Download and install Python
-
-
-2. Install necessary Python packages: PRAW and TQDM
+## Prequisites
+1. Python
+2. Apache Lucene
+3. PRAW and TQDM
+4. OS Library
+5. FLASK
    ```bash
-   pip install praw tqdm
+   Install Flask using pip: pip install Flask.
 
 ## Running the Script
-1. **Open your terminal** and navigate to your project directory:
+1. **Open your terminal** and open project directory:
    ```bash
    cd path/to/your/project
-
-2. Setup and activate virtual environment
-   ```bash
-   python -m venv env
    
-3. Windows
+2. Set environment variable to the name of your script without file extension: .py
    ```bash
-   env\Scripts\activate
-   ```
-   Linux/macOS
+   On Mac/Linux: export FLASK_APP=flasker
+
+3. Run the Server
    ```bash
-   source env/bin/activate
-4. Run the script
-   ```bash
-   python scraper.py
+   flask --app flasker run -h 0.0.0.0 -p 8888
 
 ## Using the Script
 
-1. Follow the prompts to enter the number of subreddits to scrape
-2. Enter subreddits to scrape
-3. Enter Number of Posts to Scrape for each subreddit
+1. Enter a search query
+2. Select search result sorting method
+3. View Search Results
 
-5. When done using scraper deactivate the virtual environment using command:
+4. When done using Reddit Collection Search Engine:
    ```bash
-   deactivate
+   ctrl+c
