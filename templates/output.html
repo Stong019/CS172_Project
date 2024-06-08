@@ -12,9 +12,11 @@
             {% for doc in lucene_output %}
                 <div class="card">
                     <!-- <p>Score: {{ doc.score }}</p> -->
-                    <h3>Title: {{ doc.title }}</h3>
-                    <p>Body: {{ doc.body }} </p>
-                    <p>Url: <a href="{{ doc.url }}">{{ doc.url }}</a></p>
+                    <h3 id="title">{{ doc.title }}</h3>
+                    <p id="body-paragraph">{{ doc.body|safe }} </p>
+                    <p id="link"><a href="{{ doc.url }}">{{ doc.url }}</a></p>
+                    <p id="votes">Votes: {{ doc.post_score }}</p> 
+                    <p id="time">Time: {{ doc.created_utc }}</p> 
                 </div>
             {% endfor %}
         {% else %}

@@ -1,32 +1,49 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: 'Arial', 'Helvetica', sans-serif;
+    background-color: #0f1315;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    height: 20vh;
+}
+
+.search-container {
+    background-color: #202628; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
 }
 
 .sbar {
+    width: 80%;
     padding: 10px;
-    border-radius: 4px;
-    border: 1px solid gray;
-    width: 40vw;
-    font: 16px;
-    box-sizing: border-box;
+    font-size: 16px;
+    border: 1px solid #0f1315; 
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .sbutton {
-    padding: 11px 20px;
-    font: 16px;
-    color: white;
-    background-color: #0056b3;
-    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    background-color: #0056CE; 
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
 .sbutton:hover {
-    background-color: #0818A8;
+    color: rgb(8, 47, 84);
+    background-color: #74a8f1; 
+}
+
+.sort-options {
+    margin-top: 20px;
 }

@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset=UTF-8>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CS172 Project</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/input.css') }}">
-    </head>
-    <body>
-        <div>
-            <form action="/output" method="post">
-                <input class='sbar' required type="text" name="query" placeholder="Search...">
-                <input class='sbutton' type="submit" value="Search">
-            </form>
-        </div>
-
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS172 Project - Search</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/input.css') }}">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>CS172 Project Search</h1>
+        <form action="/output" method="post">
+            <input class="sbar" required type="text" name="query" placeholder="Search...">
+            <input class="sbutton" type="submit" value="Search">
+            <div class="sort-options">
+                <select id="sort" name="sort">
+                    <option value="relevance">Relevance</option>
+                    <option value="votes">Votes</option>
+                    <option value="time">Time</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</body>
 </html>
