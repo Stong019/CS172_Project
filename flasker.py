@@ -15,6 +15,7 @@ from org.apache.lucene.search.similarities import BM25Similarity
 from org.apache.lucene.search.highlight import SimpleHTMLFormatter, QueryScorer, Highlighter, SimpleFragmenter
 from org.apache.lucene.search import Sort, SortField
 from flask import request, Flask, render_template
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -94,6 +95,8 @@ def retrieve(storedir, query, sort):
     for hit in topDocs.scoreDocs:
         doc = searcher.doc(hit.doc)
         snippet = generate_snippet(doc.get("Body"), query)
+        created_utc = int(doc.get("Created UTC"))
+        created_date = datetime.utcfromtimestamp(created_utc).strftime('%Y-%m-%d %H:%M')
         topkdocs.append({
             "score": hit.score,
             "post_id": doc.get("Post ID"),
@@ -102,7 +105,7 @@ def retrieve(storedir, query, sort):
             "url": doc.get("Url"),
             "post_score": doc.get("Post Score"),
             "num_comments": doc.get("# Comments"),
-            "created_utc": doc.get("Created UTC"),
+            "created_utc": created_date,
             "body": snippet
         })
 

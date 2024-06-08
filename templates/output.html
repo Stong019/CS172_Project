@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset=UTF-8>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CS172 Project</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/output.css') }}">    </head>
-    <body>
-        <h2>Search Results</h2>
-        <div class="container">
+<head>
+    <meta charset=UTF-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS172 Project</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+<body>
+    <h2>Search Results</h2>
+    <div class="container">
         {% if lucene_output %}
             {% for doc in lucene_output %}
                 <div class="card">
@@ -15,14 +16,16 @@
                     <h3 id="title">{{ doc.title }}</h3>
                     <p id="body-paragraph">{{ doc.body|safe }} </p>
                     <p id="link"><a href="{{ doc.url }}">{{ doc.url }}</a></p>
-                    <p id="votes">Votes: {{ doc.post_score }}</p> 
-                    <p id="time">Time: {{ doc.created_utc }}</p> 
+                    <p id="votes">Votes: {{ doc.post_score }}</p>
+                    <p id="time">Time: {{ doc.created_utc }}</p>
                 </div>
             {% endfor %}
         {% else %}
             <h3>No Results Found</h3>
         {% endif %}
+        <div class="search-again-btn">
+            <a href="/">Search Again</button>
         </div>
-        <button><a href="/">Search Again</a></button>
-    </body>
+    </div>
+</body>
 </html>

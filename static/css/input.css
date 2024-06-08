@@ -40,8 +40,8 @@ body {
 }
 
 .sbutton:hover {
-    color: rgb(8, 47, 84);
-    background-color: #74a8f1; 
+    background-color: #1976D2;
+    color: #ffffff
 }
 
 .sort-options {

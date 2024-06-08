@@ -53,7 +53,7 @@ h2 {
     color: #bec5da;
     position: relative;
     top: 13px;
-    left: 643px;
+    left: 615px;
 }
 
 #time {
@@ -61,7 +61,7 @@ h2 {
     color: #bec5da;
     position: relative;
     top: 16px;
-    left: 643px;
+    left: 615px;
 }
 
 .highlight {
@@ -88,7 +88,7 @@ h2 {
     text-decoration: none;
 }
 
-.search-again-btn {
+.search-again-btn a{
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -102,6 +102,8 @@ h2 {
     width: 200px;
 }
 
-.search-again-btn:hover {
+.search-again-btn a:hover {
     background-color: #1976D2;
+    color: #ffffff
 }
+
