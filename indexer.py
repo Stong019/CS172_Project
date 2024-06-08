@@ -90,7 +90,7 @@ def create_index(dir):
                         doc.add(Field('Title', str(title), contextType))
                         doc.add(Field('Url', str(url), metaType))
                         doc.add(Field('Post Score', int(post_score), numericType))
-                        doc.add(Field('# Comments', int(num_comments), metaType))
+                        doc.add(Field('# Comments', int(num_comments), numericType))
                         doc.add(Field('Created UTC', int(created_utc), numericType))
                         doc.add(Field('Body', str(body), contextType))
 

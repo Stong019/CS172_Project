@@ -49,7 +49,7 @@ def generate_snippet(text, query_terms):
         # Highlight the query terms
         for term in query_terms:
             snippet = re.sub(f"(?i)({re.escape(term)})", r"<span class='highlight'>\1</span>", snippet)
-        return snippet
+        return ("..." + snippet + "...")
     return text[:snippet_length]  # Return the first snippet_length characters if no match is found
 
 def retrieve(storedir, query, sort):
@@ -82,7 +82,7 @@ def retrieve(storedir, query, sort):
     elif sort == 'time':
         #sort by time
         print("sorting by time")
-        sort_field = SortField("Created UTC", SortField.Type.LONG)
+        sort_field = SortField("Created UTC", SortField.Type.LONG, True)
         sort = Sort(sort_field)
         topDocs = searcher.search(combined_query, 10, sort)
 
